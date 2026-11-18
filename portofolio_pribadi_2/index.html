@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satria Alghifari | All-Star Basketball Player & Front-End Dev</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Oswald (Sporty Display) & Plus Jakarta Sans (Clean Modern UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Konfigurasi Tailwind Custom -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Oswald"', 'sans-serif'],
+                    },
+                    colors: {
+                        court: {
+                            dark: '#0A0B0E',
+                            card: '#13161D',
+                            border: '#232836',
+                        },
+                        hoop: {
+                            orange: '#FF5E1A',
+                            glow: '#FF7B3D',
+                            gold: '#F59E0B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS untuk Animasi & Efek Khusus -->
+    <style>
+        body {
+            background-color: #0A0B0E;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Kursor berkedip untuk efek typing */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+            color: #FF5E1A;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Scroll Reveal Base Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* 3D Tilt Card Setup */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+        }
+        .tilt-card-inner {
+            transform: translateZ(20px);
+        }
+
+        /* Efek Pulse untuk Hotspot Lapangan Basket */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+        .hotspot-ring {
+            transform-origin: center;
+            transform-box: fill-box;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        /* Glassmorphism */
+        .glass-nav {
+            background: rgba(10, 11, 14, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0B0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232836;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF5E1A;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-hoop-orange selection:text-white">
+
+    <!-- Top Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-hoop-orange via-hoop-gold to-hoop-orange z-50 transition-all duration-75" style="width: 0%;"></div>
+
+    <!-- Navbar -->
+    <header id="navbar" class="fixed top-0 w-full z-40 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-hoop-orange to-hoop-gold flex items-center justify-center text-white font-display font-bold text-xl shadow-lg shadow-hoop-orange/20 group-hover:rotate-12 transition-transform">
+                        SA
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-xl tracking-wider text-white block leading-none">SATRIA<span class="text-hoop-orange">.</span></span>
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Kelas 11 A • #24</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-hoop-orange transition-colors">Beranda</a>
+                    <a href="#stats" class="nav-link text-sm font-medium text-gray-300 hover:text-hoop-orange transition-colors">Statistik</a>
+                    <a href="#skills" class="nav-link text-sm font-medium text-gray-300 hover:text-hoop-orange transition-colors">Kemampuan & Court</a>
+                    <a href="#achievements" class="nav-link text-sm font-medium text-gray-300 hover:text-hoop-orange transition-colors">Prestasi</a>
+                    <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-hoop-orange transition-colors">Profil & Coding</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="#contact" class="magnetic-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-court-card border border-court-border hover:border-hoop-orange text-sm font-semibold text-white transition-all shadow-lg">
+                        <i class="fa-solid fa-basketball text-hoop-orange"></i>
+                        <span>Ajak Sparring / Kolaborasi</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" aria-label="Buka Menu" class="md:hidden p-2.5 rounded-xl bg-court-card border border-court-border text-gray-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-court-card border-b border-court-border px-4 pt-2 pb-6 space-y-2">
+            <a href="#home" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-gray-200 hover:bg-court-border/50 hover:text-hoop-orange">Beranda</a>
+            <a href="#stats" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-gray-200 hover:bg-court-border/50 hover:text-hoop-orange">Statistik</a>
+            <a href="#skills" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-gray-200 hover:bg-court-border/50 hover:text-hoop-orange">Kemampuan & Court</a>
+            <a href="#achievements" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-gray-200 hover:bg-court-border/50 hover:text-hoop-orange">Prestasi</a>
+            <a href="#about" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-gray-200 hover:bg-court-border/50 hover:text-hoop-orange">Profil & Coding</a>
+            <a href="#contact" class="mobile-link block px-4 py-3 mt-4 text-center rounded-xl text-base font-semibold bg-hoop-orange text-white">Hubungi Satria</a>
+        </div>
+    </header>
+
+    <!-- 1. HERO SECTION INTERAKTIF -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- HTML5 Canvas untuk Partikel & Garis Lapangan Basket Interaktif -->
+        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+        
+        <!-- Ambient Radial Glow -->
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-hoop-orange/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-hoop-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 md:py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Teks Utama -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <!-- Badge Juara -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-court-card/90 border border-hoop-gold/40 text-hoop-gold text-xs sm:text-sm font-semibold shadow-lg shadow-hoop-gold/5">
+                        <i class="fa-solid fa-trophy text-hoop-gold animate-bounce"></i>
+                        <span>Juara Kompetisi Basket • All-Star Game Champion</span>
+                    </div>
+
+                    <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-bold uppercase tracking-tight text-white leading-[1.08]">
+                        Satria <span class="text-transparent bg-clip-text bg-gradient-to-r from-hoop-orange via-hoop-glow to-hoop-gold">Alghifari</span>
+                    </h1>
+
+                    <!-- Typing Text Effect -->
+                    <div class="h-10 sm:h-12 flex items-center justify-center lg:justify-start">
+                        <span class="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-300">
+                            Saya adalah <span id="typing-text" class="text-hoop-orange font-bold typing-cursor"></span>
+                        </span>
+                    </div>
+
+                    <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Siswa <strong class="text-white">Kelas 11 A</strong> dengan dedikasi tinggi di lapangan basket sebagai playmaker & perimeter shooter, serta antusias merancang antarmuka web interaktif melalui Front-End Development.
+                    </p>
+
+                    <!-- Tombol CTA dengan Efek Magnetik -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#skills" class="magnetic-btn group relative inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-gradient-to-r from-hoop-orange to-[#E04808] text-white font-bold text-base shadow-xl shadow-hoop-orange/25 hover:shadow-hoop-orange/40 transition-all">
+                            <span>Eksplorasi Skill Basket</span>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#achievements" class="magnetic-btn inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-court-card border border-court-border hover:border-hoop-gold/60 text-gray-200 hover:text-white font-semibold text-base transition-all">
+                            <i class="fa-solid fa-medal text-hoop-gold"></i>
+                            <span>Lihat Pencapaian</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visual Kartu Atlet Interaktif -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="tilt-card relative w-full max-w-md rounded-3xl bg-gradient-to-b from-court-card to-[#0D0F14] border border-court-border p-6 sm:p-8 shadow-2xl">
+                        <!-- Dekorasi Sudut -->
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-lg bg-hoop-orange/15 border border-hoop-orange/30 text-hoop-orange font-display font-bold text-sm tracking-wider">
+                            GUARD • #24
+                        </div>
+
+                        <div class="tilt-card-inner space-y-6">
+                            <!-- Ilustrasi SVG Bola Basket & Ring Dinamis -->
+                            <div class="relative w-44 h-44 mx-auto my-2 flex items-center justify-center">
+                                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-hoop-orange/20 to-hoop-gold/20 animate-pulse"></div>
+                                <svg viewBox="0 0 200 200" class="w-40 h-40 drop-shadow-[0_15px_25px_rgba(255,94,26,0.35)]">
+                                    <defs>
+                                        <radialGradient id="ballGrad" cx="35%" cy="30%" r="70%">
+                                            <stop offset="0%" stop-color="#FF8547"/>
+                                            <stop offset="55%" stop-color="#FF5E1A"/>
+                                            <stop offset="100%" stop-color="#9E2A00"/>
+                                        </radialGradient>
+                                    </defs>
+                                    <!-- Lingkaran Utama Bola -->
+                                    <circle cx="100" cy="100" r="85" fill="url(#ballGrad)" stroke="#1A110B" stroke-width="4"/>
+                                    <!-- Garis-garis Bola Basket -->
+                                    <path d="M 15 100 Q 100 100 185 100" fill="none" stroke="#1A110B" stroke-width="4"/>
+                                    <path d="M 100 15 Q 100 100 100 185" fill="none" stroke="#1A110B" stroke-width="4"/>
+                                    <path d="M 38 42 Q 95 100 38 158" fill="none" stroke="#1A110B" stroke-width="4"/>
+                                    <path d="M 162 42 Q 105 100 162 158" fill="none" stroke="#1A110B" stroke-width="4"/>
+                                    <!-- Highlight Kilau -->
+                                    <ellipse cx="68" cy="55" rx="18" ry="9" transform="rotate(-30 68 55)" fill="rgba(255,255,255,0.25)"/>
+                                </svg>
+                            </div>
+
+                            <div class="text-center space-y-1">
+                                <h2 class="font-display text-2xl font-bold text-white tracking-wide">SATRIA ALGHIFARI</h2>
+                                <p class="text-sm text-hoop-gold font-medium">All-Star Game Basketball Champion</p>
+                            </div>
+
+                            <!-- Mini Attributes -->
+                            <div class="grid grid-cols-3 gap-3 pt-4 border-t border-court-border/80 text-center">
+                                <div class="p-2.5 rounded-xl bg-court-dark/70">
+                                    <span class="block font-display text-xl font-bold text-white">92</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-gray-400">Shooting</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-court-dark/70">
+                                    <span class="block font-display text-xl font-bold text-hoop-orange">95</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-gray-400">Handles</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-court-dark/70">
+                                    <span class="block font-display text-xl font-bold text-hoop-gold">94</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-gray-400">Court IQ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. STATISTIK BASKET (COUNTER OTOMATIS DENGAN INTERSECTION OBSERVER) -->
+    <section id="stats" class="py-16 border-y border-court-border/60 bg-court-card/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Stat 1 -->
+                <div class="reveal p-6 rounded-2xl bg-court-card border border-court-border text-center hover:border-hoop-orange/50 transition-colors">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-hoop-orange/10 text-hoop-orange flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <div class="font-display text-4xl sm:text-5xl font-bold text-white flex items-center justify-center">
+                        <span class="counter" data-target="18.5" data-decimals="1">0</span>
+                        <span class="text-hoop-orange text-2xl ml-1">PPG</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1 font-medium">Rata-rata Poin Per Pertandingan</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="reveal delay-100 p-6 rounded-2xl bg-court-card border border-court-border text-center hover:border-hoop-orange/50 transition-colors">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-hoop-orange/10 text-hoop-orange flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div class="font-display text-4xl sm:text-5xl font-bold text-white flex items-center justify-center">
+                        <span class="counter" data-target="42" data-decimals="0">0</span>
+                        <span class="text-hoop-orange text-2xl ml-0.5">%</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1 font-medium">Akurasi Tembakan 3-Point</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="reveal delay-200 p-6 rounded-2xl bg-court-card border border-court-border text-center hover:border-hoop-gold/50 transition-colors">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-hoop-gold/10 text-hoop-gold flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="font-display text-4xl sm:text-5xl font-bold text-white flex items-center justify-center">
+                        <span class="counter" data-target="4" data-decimals="0">0</span>
+                        <span class="text-hoop-gold text-2xl ml-1">Trofi</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1 font-medium">Termasuk Juara All-Star Game</p>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="reveal delay-300 p-6 rounded-2xl bg-court-card border border-court-border text-center hover:border-hoop-orange/50 transition-colors">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-hoop-orange/10 text-hoop-orange flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <div class="font-display text-4xl sm:text-5xl font-bold text-white flex items-center justify-center">
+                        <span class="counter" data-target="650" data-decimals="0">0</span>
+                        <span class="text-hoop-orange text-2xl ml-0.5">+</span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-1 font-medium">Jam Latihan & Drills Rutin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. INTERACTIVE BASKETBALL SKILLS & COURT VISUALIZER -->
+    <section id="skills" class="py-20 md:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="reveal text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-hoop-orange">Analisis Permainan</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold uppercase text-white">Kemampuan Basket & <span class="text-hoop-orange">Zona Tembakan</span></h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    Kombinasi fundamental yang matang, kecepatan transisi, dan akurasi tembakan dari berbagai sudut lapangan. Klik titik zona di lapangan untuk melihat analisis detail.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                
+                <!-- Kolom Kiri: Progress Bar Skill Basket Dinamis -->
+                <div class="lg:col-span-5 space-y-6 reveal">
+                    <div class="p-6 sm:p-8 rounded-3xl bg-court-card border border-court-border shadow-xl space-y-6">
+                        <div class="flex items-center justify-between border-b border-court-border pb-4">
+                            <h3 class="font-display text-2xl font-bold text-white uppercase tracking-wide">Atribut Utama</h3>
+                            <span class="px-3 py-1 rounded-full bg-hoop-orange/15 text-hoop-orange text-xs font-bold">OVR 93</span>
+                        </div>
+
+                        <!-- Skill Items -->
+                        <div class="space-y-5" id="skill-bars-container">
+                            <!-- Skill 1 -->
+                            <div class="skill-item">
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span class="text-gray-200 flex items-center gap-2"><i class="fa-solid fa-crosshairs text-hoop-orange"></i> Shooting & 3-Point Range</span>
+                                    <span class="text-hoop-orange font-display text-base">92%</span>
+                                </div>
+                                <div class="w-full h-3 bg-court-dark rounded-full overflow-hidden p-0.5 border border-court-border">
+                                    <div class="skill-progress h-full rounded-full bg-gradient-to-r from-hoop-orange to-hoop-gold transition-all duration-1000 ease-out" style="width: 0%;" data-width="92%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 2 -->
+                            <div class="skill-item">
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span class="text-gray-200 flex items-center gap-2"><i class="fa-solid fa-basketball text-hoop-orange"></i> Ball Handling & Crossover</span>
+                                    <span class="text-hoop-orange font-display text-base">95%</span>
+                                </div>
+                                <div class="w-full h-3 bg-court-dark rounded-full overflow-hidden p-0.5 border border-court-border">
+                                    <div class="skill-progress h-full rounded-full bg-gradient-to-r from-hoop-orange to-hoop-gold transition-all duration-1000 ease-out" style="width: 0%;" data-width="95%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 3 -->
+                            <div class="skill-item">
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span class="text-gray-200 flex items-center gap-2"><i class="fa-solid fa-eye text-hoop-gold"></i> Court Vision & Playmaking</span>
+                                    <span class="text-hoop-gold font-display text-base">94%</span>
+                                </div>
+                                <div class="w-full h-3 bg-court-dark rounded-full overflow-hidden p-0.5 border border-court-border">
+                                    <div class="skill-progress h-full rounded-full bg-gradient-to-r from-hoop-gold to-yellow-300 transition-all duration-1000 ease-out" style="width: 0%;" data-width="94%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 4 -->
+                            <div class="skill-item">
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span class="text-gray-200 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-hoop-orange"></i> Perimeter Defense & Steals</span>
+                                    <span class="text-hoop-orange font-display text-base">88%</span>
+                                </div>
+                                <div class="w-full h-3 bg-court-dark rounded-full overflow-hidden p-0.5 border border-court-border">
+                                    <div class="skill-progress h-full rounded-full bg-gradient-to-r from-hoop-orange to-hoop-gold transition-all duration-1000 ease-out" style="width: 0%;" data-width="88%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 5 -->
+                            <div class="skill-item">
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span class="text-gray-200 flex items-center gap-2"><i class="fa-solid fa-bolt text-hoop-orange"></i> Agility & First-Step Speed</span>
+                                    <span class="text-hoop-orange font-display text-base">91%</span>
+                                </div>
+                                <div class="w-full h-3 bg-court-dark rounded-full overflow-hidden p-0.5 border border-court-border">
+                                    <div class="skill-progress h-full rounded-full bg-gradient-to-r from-hoop-orange to-hoop-gold transition-all duration-1000 ease-out" style="width: 0%;" data-width="91%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Interactive Basketball Half-Court Visualizer -->
+                <div class="lg:col-span-7 reveal delay-200">
+                    <div class="p-6 sm:p-8 rounded-3xl bg-court-card border border-court-border shadow-xl">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+                            <div>
+                                <h3 class="font-display text-2xl font-bold text-white uppercase tracking-wide">Interactive Shot Chart</h3>
+                                <p class="text-xs text-gray-400">Klik salah satu titik oranye/emas di lapangan untuk melihat detail zona</p>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-court-dark border border-court-border text-gray-300">
+                                <span class="w-2.5 h-2.5 rounded-full bg-hoop-orange animate-ping"></span>
+                                Zona Aktif
+                            </span>
+                        </div>
+
+                        <!-- SVG Lapangan Basket Interaktif -->
+                        <div class="relative w-full rounded-2xl bg-[#0D0F15] border border-court-border/80 p-3 sm:p-5 overflow-hidden">
+                            <svg id="basketball-court-svg" viewBox="0 0 500 380" class="w-full h-auto select-none">
+                                <!-- Lantai Lapangan -->
+                                <rect x="10" y="10" width="480" height="360" rx="12" fill="#131722" stroke="#2D3548" stroke-width="3"/>
+                                
+                                <!-- Area Paint / Key -->
+                                <rect x="170" y="10" width="160" height="150" fill="rgba(255, 94, 26, 0.08)" stroke="#3B445B" stroke-width="2.5"/>
+                                
+                                <!-- Lingkaran Free Throw -->
+                                <circle cx="250" cy="160" r="55" fill="none" stroke="#3B445B" stroke-width="2.5"/>
+                                <path d="M 195 160 A 55 55 0 0 1 305 160" fill="none" stroke="#3B445B" stroke-width="2.5" stroke-dasharray="6,6"/>
+
+                                <!-- Garis 3-Point -->
+                                <path d="M 45 10 L 45 120 A 205 205 0 0 0 455 120 L 455 10" fill="none" stroke="#FF5E1A" stroke-opacity="0.45" stroke-width="3"/>
+
+                                <!-- Papan Pantul & Ring Basket -->
+                                <line x1="215" y1="35" x2="285" y2="35" stroke="#F3F4F6" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="250" cy="48" r="11" fill="none" stroke="#FF5E1A" stroke-width="3"/>
+                                <line x1="250" y1="35" x2="250" y2="37" stroke="#F3F4F6" stroke-width="3"/>
+
+                                <!-- Garis Setengah Lapangan (Bawah) -->
+                                <path d="M 195 370 A 55 55 0 0 1 305 370" fill="none" stroke="#3B445B" stroke-width="2.5"/>
+
+                                <!-- HOTSPOT 1: Left Corner 3 -->
+                                <g class="court-zone cursor-pointer group" data-zone="corner3">
+                                    <circle cx="32" cy="75" r="18" fill="#FF5E1A" fill-opacity="0.25" class="hotspot-ring"/>
+                                    <circle cx="32" cy="75" r="11" fill="#FF5E1A" stroke="#FFFFFF" stroke-width="2.5"/>
+                                    <text x="32" y="79" text-anchor="middle" fill="#FFF" font-size="10" font-weight="bold">3P</text>
+                                </g>
+
+                                <!-- HOTSPOT 2: Paint / Layup & Floater -->
+                                <g class="court-zone cursor-pointer group" data-zone="paint">
+                                    <circle cx="250" cy="95" r="20" fill="#F59E0B" fill-opacity="0.3" class="hotspot-ring"/>
+                                    <circle cx="250" cy="95" r="12" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2.5"/>
+                                    <text x="250" y="99" text-anchor="middle" fill="#0A0B0E" font-size="10" font-weight="bold">2P</text>
+                                </g>
+
+                                <!-- HOTSPOT 3: Right Elbow / Mid-Range -->
+                                <g class="court-zone cursor-pointer group" data-zone="midrange">
+                                    <circle cx="330" cy="160" r="18" fill="#FF5E1A" fill-opacity="0.25" class="hotspot-ring"/>
+                                    <circle cx="330" cy="160" r="11" fill="#FF5E1A" stroke="#FFFFFF" stroke-width="2.5"/>
+                                    <text x="330" y="164" text-anchor="middle" fill="#FFF" font-size="10" font-weight="bold">MID</text>
+                                </g>
+
+                                <!-- HOTSPOT 4: Top of the Key (Signature All-Star Shot) -->
+                                <g class="court-zone cursor-pointer group" data-zone="topkey">
+                                    <circle cx="250" cy="265" r="22" fill="#F59E0B" fill-opacity="0.35" class="hotspot-ring"/>
+                                    <circle cx="250" cy="265" r="13" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2.5"/>
+                                    <text x="250" y="269" text-anchor="middle" fill="#0A0B0E" font-size="10" font-weight="bold">★</text>
+                                </g>
+
+                                <!-- HOTSPOT 5: Left Wing Playmaking -->
+                                <g class="court-zone cursor-pointer group" data-zone="wing">
+                                    <circle cx="105" cy="215" r="18" fill="#FF5E1A" fill-opacity="0.25" class="hotspot-ring"/>
+                                    <circle cx="105" cy="215" r="11" fill="#FF5E1A" stroke="#FFFFFF" stroke-width="2.5"/>
+                                    <text x="105" y="219" text-anchor="middle" fill="#FFF" font-size="10" font-weight="bold">AST</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <!-- Panel Informasi Dinamis Zona Terpilih -->
+                        <div id="zone-info-panel" class="mt-5 p-5 rounded-2xl bg-court-dark border border-hoop-gold/40 transition-all duration-300">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <div class="flex items-center gap-2.5">
+                                    <span id="zone-badge" class="px-2.5 py-1 rounded-md bg-hoop-gold text-court-dark font-display font-bold text-xs uppercase tracking-wider">SIGNATURE ZONE</span>
+                                    <h4 id="zone-title" class="font-display text-xl font-bold text-white">Top of the Key (3-Point Clutch)</h4>
+                                </div>
+                                <span id="zone-fg" class="font-display text-lg font-bold text-hoop-gold">FG%: 46.5%</span>
+                            </div>
+                            <p id="zone-desc" class="text-sm text-gray-300 leading-relaxed">
+                                Zona andalan Satria saat situasi krusial, termasuk tembakan penentu momentum di partai final All-Star Game. Mengandalkan step-back cepat setelah melakukan hesitation dribble.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PRESTASI & HIGHLIGHT TIMELINE (3D TILT CARDS) -->
+    <section id="achievements" class="py-20 md:py-28 bg-court-card/30 border-y border-court-border/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-hoop-gold">Hall of Fame & Rekam Jejak</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-bold uppercase text-white">Prestasi & <span class="text-hoop-gold">Pencapaian</span></h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    Hasil dari kerja keras di lapangan latihan, kekompakan tim, dan mentalitas juara di setiap turnamen.
+                </p>
+            </div>
+
+            <!-- Grid Kartu Prestasi dengan 3D Tilt -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Juara All-Star Game (Highlight Utama) -->
+                <div class="reveal tilt-card relative rounded-3xl bg-gradient-to-b from-[#1E1B15] via-court-card to-court-card border-2 border-hoop-gold/60 p-7 shadow-2xl shadow-hoop-gold/10">
+                    <div class="tilt-card-inner space-y-5">
+                        <div class="flex items-center justify-between">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-hoop-gold to-yellow-600 flex items-center justify-center text-court-dark text-2xl shadow-lg">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-hoop-gold/20 border border-hoop-gold/40 text-hoop-gold font-bold text-xs uppercase tracking-wider">
+                                Champion • 1st Place
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="text-xs font-semibold text-hoop-gold uppercase tracking-wider">All-Star Game Event</span>
+                            <h3 class="font-display text-2xl font-bold text-white mt-1">Juara Kompetisi Basket All-Star Game</h3>
+                        </div>
+
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Berhasil membawa tim meraih gelar juara pertama pada ajang bergengsi kompetisi basket di acara All-Star Game melalui kontribusi poin krusial, assist kunci, dan pertahanan solid di kuarter penentuan.
+                        </p>
+
+                        <div class="pt-4 border-t border-court-border flex items-center justify-between text-xs text-gray-400">
+                            <span><i class="fa-solid fa-star text-hoop-gold mr-1"></i> Final Game Winner</span>
+                            <span class="font-semibold text-white">All-Star Roster</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Playmaker & Captain -->
+                <div class="reveal delay-100 tilt-card relative rounded-3xl bg-court-card border border-court-border hover:border-hoop-orange/60 p-7 shadow-xl">
+                    <div class="tilt-card-inner space-y-5">
+                        <div class="flex items-center justify-between">
+                            <div class="w-14 h-14 rounded-2xl bg-hoop-orange/15 border border-hoop-orange/30 flex items-center justify-center text-hoop-orange text-2xl">
+                                <i class="fa-solid fa-medal"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-court-dark border border-court-border text-gray-300 font-semibold text-xs">
+                                Top Guard
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="text-xs font-semibold text-hoop-orange uppercase tracking-wider">Turnamen Antar Kelas & Sekolah</span>
+                            <h3 class="font-display text-2xl font-bold text-white mt-1">Best Playmaker & Perimeter Scorer</h3>
+                        </div>
+
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Dipercaya mengatur tempo serangan tim kelas 11 A dan skuad utama dengan rata-rata 6.4 assist per game serta konsistensi tembakan jarak jauh di bawah tekanan lawan.
+                        </p>
+
+                        <div class="pt-4 border-t border-court-border flex items-center justify-between text-xs text-gray-400">
+                            <span><i class="fa-solid fa-basketball text-hoop-orange mr-1"></i> Point / Shooting Guard</span>
+                            <span class="font-semibold text-white">Kelas 11 A</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Front-End Web Project -->
+                <div class="reveal delay-200 tilt-card relative rounded-3xl bg-court-card border border-court-border hover:border-hoop-orange/60 p-7 shadow-xl">
+                    <div class="tilt-card-inner space-y-5">
+                        <div class="flex items-center justify-between">
+                            <div class="w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-court-dark border border-court-border text-gray-300 font-semibold text-xs">
+                                Tech & Sport
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Front-End Development</span>
+                            <h3 class="font-display text-2xl font-bold text-white mt-1">Interactive Sports Web & UI</h3>
+                        </div>
+
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            Menggabungkan semangat olahraga basket dengan logika pemrograman front-end (HTML5, CSS3, Tailwind, & JavaScript) untuk menciptakan pengalaman web yang responsif dan penuh animasi.
+                        </p>
+
+                        <div class="pt-4 border-t border-court-border flex items-center justify-between text-xs text-gray-400">
+                            <span><i class="fa-brands fa-js text-yellow-400 mr-1"></i> Vanilla JS & Canvas</span>
+                            <span class="font-semibold text-white">Student Developer</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROFIL & CODING SIDE-PROJECT -->
+    <section id="about" class="py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Profil Siswa -->
+                <div class="lg:col-span-6 space-y-6 reveal">
+                    <span class="text-xs font-bold uppercase tracking-widest text-hoop-orange">Tentang Saya</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold uppercase text-white leading-tight">
+                        Disiplin di Lapangan, <span class="text-hoop-orange">Kreatif</span> di Depan Layar.
+                    </h2>
+                    <p class="text-gray-300 text-base leading-relaxed">
+                        Halo! Nama saya <strong class="text-white">Satria Alghifari</strong>, saat ini duduk di bangku <strong class="text-hoop-orange">Kelas 11 A</strong>. Bagi saya, bermain basket bukan sekadar olahraga, melainkan tentang strategi, kerja sama tim, dan ketenangan mengambil keputusan dalam hitungan detik.
+                    </p>
+                    <p class="text-gray-400 text-base leading-relaxed">
+                        Di luar jadwal latihan dan pertandingan—seperti keberhasilan menjuarai kompetisi basket di acara <strong class="text-hoop-gold">All-Star Game</strong>—saya juga memiliki ketertarikan besar pada dunia <strong class="text-white">Front-End Web Development</strong>. Saya senang bereksperimen dengan HTML, CSS, dan JavaScript untuk membangun website interaktif dengan animasi yang halus.
+                    </p>
+
+                    <!-- Tech Stack Badges -->
+                    <div class="pt-2">
+                        <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Tech Stack & Minat Coding:</p>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="px-3.5 py-2 rounded-xl bg-court-card border border-court-border text-sm font-medium text-gray-200 flex items-center gap-2">
+                                <i class="fa-brands fa-html5 text-orange-500"></i> HTML5
+                            </span>
+                            <span class="px-3.5 py-2 rounded-xl bg-court-card border border-court-border text-sm font-medium text-gray-200 flex items-center gap-2">
+                                <i class="fa-brands fa-css3-alt text-blue-500"></i> CSS3 & Tailwind
+                            </span>
+                            <span class="px-3.5 py-2 rounded-xl bg-court-card border border-court-border text-sm font-medium text-gray-200 flex items-center gap-2">
+                                <i class="fa-brands fa-js text-yellow-400"></i> JavaScript (ES6+)
+                            </span>
+                            <span class="px-3.5 py-2 rounded-xl bg-court-card border border-court-border text-sm font-medium text-gray-200 flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-hoop-orange"></i> Web Animations
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Project Showcase Card -->
+                <div class="lg:col-span-6 reveal delay-200">
+                    <div class="rounded-3xl bg-court-card border border-court-border p-6 sm:p-8 shadow-2xl space-y-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <span class="text-xs font-mono text-gray-400">satria-projects.js</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Project 1 -->
+                            <div class="p-4 rounded-2xl bg-court-dark border border-court-border hover:border-hoop-orange/50 transition-all group">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div>
+                                        <span class="text-[11px] font-bold uppercase tracking-wider text-hoop-orange">Web App • JavaScript</span>
+                                        <h4 class="font-display text-lg font-bold text-white group-hover:text-hoop-orange transition-colors">Basketball Scoreboard & Shot Clock</h4>
+                                        <p class="text-xs text-gray-400 mt-1">Aplikasi papan skor digital pertandingan basket 24-second shot clock berbasis JavaScript dengan efek suara buzzer.</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-xl bg-court-card flex items-center justify-center text-hoop-orange shrink-0">
+                                        <i class="fa-solid fa-stopwatch-20"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project 2 -->
+                            <div class="p-4 rounded-2xl bg-court-dark border border-court-border hover:border-hoop-gold/50 transition-all group">
+                                <div class="flex items-start justify-between gap-4">
+                                    <div>
+                                        <span class="text-[11px] font-bold uppercase tracking-wider text-hoop-gold">UI/UX • Interactive</span>
+                                        <h4 class="font-display text-lg font-bold text-white group-hover:text-hoop-gold transition-colors">All-Star Roster & Stats Tracker</h4>
+                                        <p class="text-xs text-gray-400 mt-1">Dashboard statistik pemain basket antar kelas dengan visualisasi grafik interaktif dan mode gelap sporty.</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-xl bg-court-card flex items-center justify-center text-hoop-gold shrink-0">
+                                        <i class="fa-solid fa-chart-simple"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FOOTER & KONTAK INTERAKTIF -->
+    <footer id="contact" class="pt-16 pb-10 bg-court-card border-t border-court-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-3xl bg-gradient-to-r from-court-dark via-[#161923] to-court-dark border border-court-border p-8 sm:p-12 text-center space-y-6 mb-12 relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl mx-auto space-y-4">
+                    <span class="inline-block px-3.5 py-1 rounded-full bg-hoop-orange/15 text-hoop-orange text-xs font-bold uppercase tracking-wider">Terbuka Untuk Sparring & Kolaborasi</span>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold uppercase text-white">Siap Bertanding di Lapangan atau Membangun Web?</h2>
+                    <p class="text-gray-400 text-sm sm:text-base">
+                        Hubungi saya untuk jadwal sparring basket, diskusi strategi tim, atau kolaborasi proyek front-end web development.
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center gap-4 pt-3">
+                        <button id="copy-email-btn" class="magnetic-btn inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-hoop-orange hover:bg-hoop-glow text-white font-bold text-sm shadow-lg shadow-hoop-orange/25 transition-all cursor-pointer">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span>satria.alghifari11a@example.com</span>
+                            <i class="fa-regular fa-copy text-xs opacity-80"></i>
+                        </button>
+                    </div>
+                    <!-- Notifikasi Copy Sukses (Pengganti alert()) -->
+                    <p id="copy-feedback" class="text-xs font-semibold text-hoop-gold opacity-0 transition-opacity duration-300">
+                        <i class="fa-solid fa-circle-check mr-1"></i> Alamat email berhasil disalin ke clipboard!
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+                <div class="flex items-center gap-2">
+                    <span class="font-display font-bold text-white tracking-wider">SATRIA ALGHIFARI</span>
+                    <span>•</span>
+                    <span>Siswa Kelas 11 A</span>
+                </div>
+                <p class="text-xs text-gray-500">
+                    &copy; <span id="current-year">2026</span> Satria Alghifari. Dibuat dengan semangat juara & JavaScript.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT UNTUK SEMUA ANIMASI & INTERAKTIVITAS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set Tahun Dinamis
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // =========================================================================
+            // 1. SCROLL PROGRESS BAR & NAVBAR GLASS EFFECT
+            // =========================================================================
+            const scrollProgress = document.getElementById('scroll-progress');
+            const navbar = document.getElementById('navbar');
+
+            window.addEventListener('scroll', () => {
+                // Hitung persentase scroll
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                scrollProgress.style.width = `${scrollPercent}%`;
+
+                // Ubah tampilan navbar saat di-scroll
+                if (scrollTop > 30) {
+                    navbar.classList.add('glass-nav', 'border-court-border/80', 'shadow-lg');
+                    navbar.classList.remove('border-transparent');
+                } else {
+                    navbar.classList.remove('glass-nav', 'border-court-border/80', 'shadow-lg');
+                    navbar.classList.add('border-transparent');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // =========================================================================
+            // 2. HERO INTERACTIVE CANVAS (PARTIKEL BOLA BASKET & GARIS JARINGAN DINAMIS)
+            // =========================================================================
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: null, y: null, radius: 140 };
+
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+                initParticles();
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            window.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class BasketballParticle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 5 + 2.5;
+                    this.speedX = (Math.random() - 0.5) * 0.9;
+                    this.speedY = (Math.random() - 0.5) * 0.9;
+                    // Warna oranye basket atau emas juara
+                    this.isGold = Math.random() > 0.78;
+                    this.color = this.isGold ? 'rgba(245, 158, 11, 0.65)' : 'rgba(255, 94, 26, 0.6)';
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    // Pantulan tepi layar
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+                    // Interaksi kursor (parallax / repulse halus)
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < mouse.radius) {
+                            const force = (mouse.radius - distance) / mouse.radius;
+                            this.x -= (dx / distance) * force * 2.5;
+                            this.y -= (dy / distance) * force * 2.5;
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+
+                    // Aksen garis kecil menyerupai bola basket pada partikel besar
+                    if (this.size > 4.5) {
+                        ctx.strokeStyle = 'rgba(10, 11, 14, 0.5)';
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 65);
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new BasketballParticle());
+                }
+            }
+
+            function connectParticles() {
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a + 1; b < particles.length; b++) {
+                        const dx = particles[a].x - particles[b].x;
+                        const dy = particles[a].y - particles[b].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 130) {
+                            const opacity = 1 - distance / 130;
+                            ctx.strokeStyle = `rgba(255, 94, 26, ${opacity * 0.18})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animateCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Gambar dekorasi garis busur lapangan basket tipis di latar belakang
+                ctx.beginPath();
+                ctx.arc(canvas.width * 0.85, canvas.height * 0.5, 220, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 94, 26, 0.05)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                connectParticles();
+                requestAnimationFrame(animateCanvas);
+            }
+
+            resizeCanvas();
+            animateCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // =========================================================================
+            // 3. TYPING TEXT EFFECT OTOMATIS
+            // =========================================================================
+            const typingElement = document.getElementById('typing-text');
+            const roles = [
+                "Basketball Player",
+                "All-Star Champion",
+                "Front-End Developer",
+                "Siswa Kelas 11 A"
+            ];
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function typeEffect() {
+                const currentRole = roles[roleIndex];
+                
+                if (isDeleting) {
+                    typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 45 : 95;
+
+                if (!isDeleting && charIndex === currentRole.length) {
+                    typeSpeed = 1800; // Jeda setelah selesai mengetik kata
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    typeSpeed = 400;
+                }
+
+                setTimeout(typeEffect, typeSpeed);
+            }
+            typeEffect();
+
+            // =========================================================================
+            // 4. MAGNETIC BUTTON EFFECT
+            // =========================================================================
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.22}px, ${y * 0.28}px)`;
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0px, 0px)';
+                });
+            });
+
+            // =========================================================================
+            // 5. SCROLL REVEAL, COUNTER ANGKA & SKILL PROGRESS BARS (INTERSECTION OBSERVER)
+            // =========================================================================
+            const revealElements = document.querySelectorAll('.reveal');
+            const counters = document.querySelectorAll('.counter');
+            const skillBars = document.querySelectorAll('.skill-progress');
+            let countersStarted = false;
+            let skillsAnimated = false;
+
+            const observerOptions = {
+                threshold: 0.18,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+
+                        // Jalankan Counter jika bagian statistik terlihat
+                        if (entry.target.querySelector('.counter') && !countersStarted) {
+                            countersStarted = true;
+                            runCounters();
+                        }
+
+                        // Jalankan Animasi Skill Bar jika bagian skill terlihat
+                        if (entry.target.querySelector('#skill-bars-container') && !skillsAnimated) {
+                            skillsAnimated = true;
+                            skillBars.forEach(bar => {
+                                const targetWidth = bar.getAttribute('data-width');
+                                bar.style.width = targetWidth;
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => scrollObserver.observe(el));
+
+            function runCounters() {
+                counters.forEach(counter => {
+                    const target = parseFloat(counter.getAttribute('data-target'));
+                    const decimals = parseInt(counter.getAttribute('data-decimals')) || 0;
+                    const duration = 1800; // ms
+                    const startTime = performance.now();
+
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // Ease out expo
+                        const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                        const currentVal = easeOut * target;
+
+                        counter.textContent = currentVal.toFixed(decimals);
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target.toFixed(decimals);
+                        }
+                    }
+                    requestAnimationFrame(updateCounter);
+                });
+            }
+
+            // =========================================================================
+            // 6. INTERACTIVE BASKETBALL COURT SHOT CHART
+            // =========================================================================
+            const zoneData = {
+                topkey: {
+                    badge: "SIGNATURE ZONE",
+                    badgeColor: "bg-hoop-gold text-court-dark",
+                    title: "Top of the Key (3-Point Clutch)",
+                    fg: "FG%: 46.5%",
+                    desc: "Zona andalan Satria saat situasi krusial, termasuk tembakan penentu momentum di partai final All-Star Game. Mengandalkan step-back cepat setelah melakukan hesitation dribble."
+                },
+                corner3: {
+                    badge: "CORNER SPECIALIST",
+                    badgeColor: "bg-hoop-orange text-white",
+                    title: "Left Corner 3-Point",
+                    fg: "FG%: 44.0%",
+                    desc: "Tembakan catch-and-shoot cepat dari sudut kiri lapangan. Sangat efektif saat transisi fast-break ketika pertahanan lawan terfokus pada area tengah."
+                },
+                paint: {
+                    badge: "FINISHING & FLOATER",
+                    badgeColor: "bg-hoop-gold text-court-dark",
+                    title: "Paint Area & Teardrop Floater",
+                    fg: "FG%: 61.2%",
+                    desc: "Penetrasi tajam menembus pertahanan lawan dengan akrobatik reverse layup maupun floater tinggi untuk menghindari blok pemain big man."
+                },
+                midrange: {
+                    badge: "PULL-UP JUMPER",
+                    badgeColor: "bg-hoop-orange text-white",
+                    title: "Right Elbow Mid-Range",
+                    fg: "FG%: 52.8%",
+                    desc: "Tembakan jarak menengah setelah memanfaatkan pick-and-roll. Keseimbangan tubuh yang stabil membuat akurasi pull-up jumper sangat sulit dihentikan."
+                },
+                wing: {
+                    badge: "PLAYMAKING HUB",
+                    badgeColor: "bg-hoop-orange text-white",
+                    title: "Left Wing Vision & Pass",
+                    fg: "AST: 6.4 / Game",
+                    desc: "Posisi utama untuk membaca pergerakan rekan setim, mengirimkan umpan no-look pass ke cutter di area paint, maupun skip-pass ke penembak bebas."
+                }
+            };
+
+            const courtZones = document.querySelectorAll('.court-zone');
+            const zoneBadge = document.getElementById('zone-badge');
+            const zoneTitle = document.getElementById('zone-title');
+            const zoneFg = document.getElementById('zone-fg');
+            const zoneDesc = document.getElementById('zone-desc');
+            const zonePanel = document.getElementById('zone-info-panel');
+
+            courtZones.forEach(zone => {
+                zone.addEventListener('click', () => {
+                    const key = zone.getAttribute('data-zone');
+                    const data = zoneData[key];
+                    if (!data) return;
+
+                    // Animasi transisi halus pada panel info
+                    zonePanel.style.opacity = '0.4';
+                    zonePanel.style.transform = 'translateY(4px)';
+
+                    setTimeout(() => {
+                        zoneBadge.textContent = data.badge;
+                        zoneBadge.className = `px-2.5 py-1 rounded-md font-display font-bold text-xs uppercase tracking-wider ${data.badgeColor}`;
+                        zoneTitle.textContent = data.title;
+                        zoneFg.textContent = data.fg;
+                        zoneDesc.textContent = data.desc;
+
+                        zonePanel.style.opacity = '1';
+                        zonePanel.style.transform = 'translateY(0)';
+                    }, 150);
+                });
+            });
+
+            // =========================================================================
+            // 7. 3D TILT HOVER EFFECT UNTUK KARTU PRESTASI & PROFIL
+            // =========================================================================
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -7;
+                    const rotateY = ((x - centerX) / centerX) * 7;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            });
+
+            // =========================================================================
+            // 8. COPY EMAIL TO CLIPBOARD (TANPA ALERT)
+            // =========================================================================
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const copyFeedback = document.getElementById('copy-feedback');
+
+            copyEmailBtn.addEventListener('click', () => {
+                const email = "satria.alghifari11a@example.com";
+                const tempInput = document.createElement('input');
+                tempInput.value = email;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                copyFeedback.classList.remove('opacity-0');
+                setTimeout(() => {
+                    copyFeedback.classList.add('opacity-0');
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>
